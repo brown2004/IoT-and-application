@@ -1,0 +1,4 @@
+-Vẽ giao diện demo bao gồm các chức năng:
++Hiển thị bãi do xe Grid (2 state : Co xe, Trống)
++Thống kê tổng thể trạng thai hien tai
++Cập nhật dữ liệu thời gian thực
