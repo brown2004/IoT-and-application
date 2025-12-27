@@ -1,12 +1,30 @@
 import React from "react";
 import "../styles/ParkingSlot.css";
 
-const ParkingSlot = ({ id, status }) => {
-  const isAvailable = status === "available";
+const ParkingSlot = ({ id, floor, row, column, status, isSelected, onSelect }) => {
   return (
-    <div className={`slot ${isAvailable ? "available" : "occupied"}`}>
-      <h3>Slot {id}</h3>
-      <p>{isAvailable ? "Trống" : "Có xe"}</p>
+    <div
+      className={`parking-slot ${status} ${isSelected ? "selected" : ""}`}
+      onClick={() => onSelect()}
+    >
+      <div className="slot-header">
+        <span className="floor-tag">Tầng {floor}</span>
+        <span className="position-tag">{row}-{column}</span>
+      </div>
+
+      <div className="slot-body">
+        {status === "occupied" ? (
+          <span className="car-icon">Có xe</span>
+        ) : (
+          <span className="empty-icon">...</span>
+        )}
+      </div>
+
+      {isSelected && <div className="my-spot-label">Xe của bạn</div>}
+      
+      {status === "occupied" && !isSelected && (
+        <span className="occupied-text">Đã đỗ</span>
+      )}
     </div>
   );
 };
