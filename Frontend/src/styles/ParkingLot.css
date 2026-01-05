@@ -28,10 +28,10 @@
 .stat-card.total h3 {
   color: #1e3a8a;
 }
-.stat-card.occupied h3 {
+.stat-card.Occupied h3 {
   color: #d5afaf;
 }
-.stat-card.available h3 {
+.stat-card.Free h3 {
   color: #16a34a;
 }
 

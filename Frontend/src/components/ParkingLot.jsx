@@ -64,7 +64,7 @@ const ParkingLot = ({ isAdmin }) => {
       ));
 
       // Kiểm tra nếu ô đỗ của CHÍNH MÌNH vừa trống (xe đã rời đi)
-      if (updatedSlot._id === selectedSlot && updatedSlot.status === 'available') {
+      if (updatedSlot._id === selectedSlot && updatedSlot.status === 'Free') {
         if (!hasShownExitPopup) {
           setExitPopup(true);
           setHasShownExitPopup(true);
@@ -138,7 +138,7 @@ const ParkingLot = ({ isAdmin }) => {
       return;
     }
 
-    if (slot.status === "available") {
+    if (slot.status === "Free") {
       setNotifyMessage("Ô này đang trống, hãy đỗ xe vào trước khi xác nhận!");
       setNotifyType("warning");
       return;
@@ -362,8 +362,8 @@ const ParkingLot = ({ isAdmin }) => {
 
       <div className="lot-stats">
         <div className="stat-card total"><h3>Tổng chỗ</h3><p>{slots.length}</p></div>
-        <div className="stat-card occupied"><h3>Đang có xe</h3><p>{slots.filter(s => s.status === 'occupied').length}</p></div>
-        <div className="stat-card available"><h3>Trống</h3><p>{slots.filter(s => s.status === 'available').length}</p></div>
+        <div className="stat-card Occupied"><h3>Đang có xe</h3><p>{slots.filter(s => s.status === 'Occupied').length}</p></div>
+        <div className="stat-card Free"><h3>Trống</h3><p>{slots.filter(s => s.status === 'Free').length}</p></div>
       </div>
 
       <div className="slot-grid">

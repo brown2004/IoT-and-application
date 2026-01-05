@@ -13,7 +13,7 @@ const ParkingSlot = ({ id, floor, row, column, status, isSelected, onSelect }) =
       </div>
 
       <div className="slot-body">
-        {status === "occupied" ? (
+        {status === "Occupied" ? (
           <span className="car-icon">Có xe</span>
         ) : (
           <span className="empty-icon">...</span>
@@ -22,8 +22,8 @@ const ParkingSlot = ({ id, floor, row, column, status, isSelected, onSelect }) =
 
       {isSelected && <div className="my-spot-label">Xe của bạn</div>}
       
-      {status === "occupied" && !isSelected && (
-        <span className="occupied-text">Đã đỗ</span>
+      {status === "Occupied" && !isSelected && (
+        <span className="Occupied-text">Đã đỗ</span>
       )}
     </div>
   );

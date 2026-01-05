@@ -35,14 +35,14 @@
 }
 
 /* Trạng thái Trống */
-.parking-slot.available {
+.parking-slot.Free {
   background: #e9f9ef;
   border-color: #2ecc71;
   color: #27ae60;
 }
 
 /* Trạng thái Có xe */
-.parking-slot.occupied {
+.parking-slot.Occupied {
   background: #ffe6e6;
   border-color: #ff6b6b;
   color: #c0392b;
