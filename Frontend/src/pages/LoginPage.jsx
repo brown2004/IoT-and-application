@@ -9,14 +9,20 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const API_BASE_URL = import.meta.env.VITE_API_URL;
-  console.log("API URL là:", API_BASE_URL);
+  // console.log("API URL là:", API_BASE_URL);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setMessage("");
+
+    if (isRegistering && password !== confirmPassword) {
+      setError("Mật khẩu xác nhận không khớp!");
+      return;
+    }
 
     // Khớp với route trong userRouter của bạn
     const endpoint = isRegistering ? "/api/users" : "/api/users/login";
@@ -24,7 +30,11 @@ const LoginPage = () => {
     try {
       const res = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "POST",
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({
+          username,
+          password,
+          is_admin: false
+        }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -43,6 +53,7 @@ const LoginPage = () => {
           // Lưu token và user nhận được từ API vào localStorage
           localStorage.setItem("token", data.token);
           localStorage.setItem("loggedIn", "true");
+          localStorage.setItem("user", JSON.stringify(data.user));
 
           navigate("/dashboard");
           window.location.reload();
@@ -77,6 +88,16 @@ const LoginPage = () => {
           required
         />
 
+        {isRegistering && (
+          <input
+            type="password"
+            placeholder="Xác nhận mật khẩu"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+        )}
+
         <button type="submit">
           {isRegistering ? "Đăng ký" : "Đăng nhập"}
         </button>
@@ -88,7 +109,11 @@ const LoginPage = () => {
           <span>{isRegistering ? "Đã có tài khoản?" : "Chưa có tài khoản?"}</span>
           <button
             type="button"
-            onClick={() => { setIsRegistering(!isRegistering); setError(""); }}
+            onClick={() => {
+              setIsRegistering(!isRegistering);
+              setError("");
+              setConfirmPassword("");
+            }}
             style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', fontWeight: 'bold' }}
           >
             {isRegistering ? " Đăng nhập ngay" : " Đăng ký ngay"}

@@ -1,84 +1,73 @@
-/* Overlay mờ */
-.exit-popup {
+.exit-popup-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.55);
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 9999;
-  animation: fadeIn 0.25s ease-out;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
 }
 
-/* Card */
 .popup-card {
-  background: #ffffff;
-  width: 380px;
-  padding: 28px;
+  background: white;
+  padding: 24px;
   border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
   text-align: center;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-  animation: scaleIn 0.25s ease-out;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
-.popup-card h3 {
-  font-size: 1.4rem;
-  margin-bottom: 10px;
-  color: #e63946;
-}
-
-.popup-card p {
-  color: #333;
+.popup-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 20px;
-  font-size: 1rem;
 }
 
-/* Buttons */
+.icon-warning { color: #f59e0b; } /* Màu vàng cảnh báo */
+
+.slot-info-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.icon-pin { color: #3b82f6; }
+
+.slot-text .label { color: #64748b; font-size: 0.9rem; margin-right: 5px; }
+.slot-text .value { color: #1e293b; font-weight: 700; font-size: 1.1rem; }
+
 .popup-btns {
   display: flex;
-  justify-content: space-between;
   gap: 12px;
+  margin-top: 24px;
 }
 
-.popup-btns button {
+.btn-yes, .btn-no {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: 12px;
-  border-radius: 10px;
   border: none;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: bold;
+  transition: all 0.2s;
 }
 
-.yes {
-  background: #2ecc71;
-  color: white;
-}
+.btn-yes { background: #10b981; color: white; }
+.btn-yes:hover { background: #059669; }
 
-.no {
-  background: #e63946;
-  color: white;
-}
-
-/* Hover */
-.yes:hover {
-  background: #27ae60;
-}
-
-.no:hover {
-  background: #c92c3c;
-}
-
-/* Hiệu ứng */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes scaleIn {
-  from { transform: scale(0.85); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
+.btn-no { background: #ef4444; color: white; }
+.btn-no:hover { background: #dc2626; }

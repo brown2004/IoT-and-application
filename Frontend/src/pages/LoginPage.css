@@ -4,9 +4,8 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    /* Thay url này bằng đường dẫn ảnh của bạn hoặc ảnh online */
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
-                      url('backgroundIOT.jpg');
+                      url('backgroundIOT2.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

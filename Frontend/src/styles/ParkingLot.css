@@ -41,3 +41,354 @@
   gap: 15px;
   justify-content: center;
 }
+
+/* Container hỏa hoạn */
+.fire-emergency-panel {
+  background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  color: white;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  animation: pulse-border 1.5s infinite;
+}
+
+.fire-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.fire-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+}
+
+.fire-item {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-left: 5px solid #fff;
+}
+
+.temp-text {
+  color: #ffeb3b;
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+
+.btn-mute {
+  background: white;
+  color: #8b0000;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-mute:hover {
+  background: #eee;
+  transform: scale(1.05);
+}
+
+/* Hiệu ứng nhấp nháy */
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+  50% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.8); }
+  100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+}
+
+.blink-icon {
+  animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Khi có cháy, làm mờ bãi xe một chút để tập trung */
+.emergency-mode .slot-grid {
+  filter: grayscale(0.5);
+  opacity: 0.8;
+}
+
+/* Container tổng */
+.security-emergency-container {
+  background: #1e1b4b; /* Deep Indigo */
+  border: 1px solid #4338ca;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Header */
+.security-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  color: #e0e7ff;
+}
+
+.security-panel-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.warning-count {
+  background: #ef4444;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* Grid danh sách card */
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+/* Card chi tiết */
+.security-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.security-card:hover {
+  border-color: #818cf8;
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.security-card-content {
+  padding: 16px;
+  flex-grow: 1;
+}
+
+/* Badge số ô đỗ */
+.slot-badge {
+  background: #fbbf24;
+  color: #78350f;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+/* Dòng chi tiết */
+.security-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #94a3b8;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.detail-row strong {
+  color: #f8fafc;
+}
+
+/* Nút xử lý */
+.btn-resolve-action {
+  background: #4338ca;
+  color: white;
+  border: none;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-resolve-action:hover {
+  background: #3730a3;
+}
+
+/* Hiệu ứng nháy icon */
+.icon-blink {
+  color: #f87171;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+/* Container Báo cháy */
+.fire-emergency-container {
+  background: linear-gradient(135deg, #7f1d1d 0%, #450a0a 100%);
+  border: 2px solid #ef4444;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+}
+
+.fire-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  color: #fee2e2;
+}
+
+.icon-fire-blink {
+  color: #f87171;
+  animation: fire-vibrate 0.2s infinite;
+}
+
+.location-badge-red {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.btn-fire-resolve {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-fire-resolve:hover {
+  background: #dc2626;
+  letter-spacing: 1px;
+}
+
+/* Hiệu ứng rung cho Icon Lửa */
+@keyframes fire-vibrate {
+  0% { transform: translate(0); }
+  25% { transform: translate(2px, -2px); }
+  50% { transform: translate(-2px, 2px); }
+  75% { transform: translate(2px, 2px); }
+  100% { transform: translate(0); }
+}
+
+/* Icon Security nháy chậm hơn */
+.icon-security-blink {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.confirm-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(5px);
+}
+
+.confirm-modal {
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  border: 1px solid #334155;
+  color: white;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.confirm-icon {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.confirm-slot-info {
+  background: #fbbf24;
+  color: #78350f;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  margin: 15px 0;
+}
+
+.confirm-note {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.confirm-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-confirm-yes {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-confirm-no {
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid #475569;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-confirm-yes:hover { background: #1d4ed8; }
+.btn-confirm-no:hover { color: white; border-color: white; }
