@@ -58,16 +58,6 @@
   opacity: 0.9;
 }
 
-.emergency-banner {
-  background: linear-gradient(90deg, #ff4b2b, #ff416c);
-  color: white;
-  padding: 15px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.2rem;
-  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
-  animation: pulse 1.5s infinite;
-}
 
 @keyframes pulse {
   0% { transform: scale(1); }
@@ -75,13 +65,62 @@
   100% { transform: scale(1); }
 }
 
-.fire-status-indicator {
-  padding: 5px 15px;
-  border-radius: 20px;
-  font-size: 0.9rem;
+/* Dashboard.css */
+.fire-emergency-alert {
+  background: linear-gradient(135deg, #be123c 0%, #fb7185 100%);
+  color: white;
+  padding: 24px;
+  border-radius: 12px;
+  margin: 20px;
+  box-shadow: 0 10px 30px rgba(190, 18, 60, 0.4);
+  border: 2px solid #ffe4e6;
 }
-.fire-status-indicator.safe { background: #e6fffa; color: #2d3748; border: 1px solid #38b2ac; }
-.fire-status-indicator.warning { background: #fff5f5; color: #c53030; border: 1px solid #feb2b2; }
+
+.alert-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.alert-text h2 {
+  margin: 0 0 8px 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.alert-text p {
+  margin: 0;
+  font-size: 1.1rem;
+  opacity: 0.95;
+}
+
+.alert-text strong {
+  text-decoration: underline;
+  color: #fff1f2;
+  font-size: 1.2rem;
+}
+
+.alert-details {
+  margin-top: 12px;
+  display: flex;
+  gap: 15px;
+  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 6px 15px;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.blink-animation {
+  animation: pulse-danger 1s infinite;
+}
+
+@keyframes pulse-danger {
+  0% { transform: scale(1); filter: drop-shadow(0 0 0px white); }
+  50% { transform: scale(1.1); filter: drop-shadow(0 0 15px white); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 0px white); }
+}
 
 .modal-overlay {
   position: fixed;

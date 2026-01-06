@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ParkingLot from "../components/ParkingLot";
 import { useNavigate } from "react-router-dom";
-import { Clock, Lock, Unlock, Settings, ArrowRight } from "lucide-react";
+import { Clock, Lock, Unlock, Settings, ArrowRight,ShieldAlert } from "lucide-react";
 import "../styles/Dashboard.css";
 import TimeConfigModal from "../components/TimeConfigModal";
+import GateControlPanel from "../components/GateControlPanel.jsx";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -101,10 +102,22 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
 
-      {fireStats?.activeWarnings > 0 && (
-        <div className="emergency-banner">
-          PHÁT HIỆN HỎA HOẠN TẠI {fireStats.activeWarnings} VỊ TRÍ!
-          <span> Nhiệt độ cao nhất: {fireStats.maxTemperature}°C</span>
+      {!isAdmin && fireStats?.activeWarnings > 0 && (
+        <div className="fire-emergency-alert">
+          <div className="alert-content">
+            <div className="alert-icon">
+              <ShieldAlert size={40} className="blink-animation" />
+            </div>
+            <div className="alert-text">
+              <h2>CẢNH BÁO NGUY HIỂM: PHÁT HIỆN HỎA HOẠN!</h2>
+              <p>Để đảm bảo an toàn, tuyệt đối <strong>KHÔNG DI CHUYỂN XUỐNG HẦM</strong> vào lúc này.</p>
+              <div className="alert-details">
+                <span>Hệ thống đang xử lý tại {fireStats.activeWarnings} khu vực</span>
+                <span className="divider">|</span>
+                <span>Nhiệt độ vùng cháy: {fireStats.maxTemperature}°C</span>
+              </div>
+            </div>
+          </div>
         </div>
       )}
       <header className="dashboard-header">
@@ -167,6 +180,11 @@ const Dashboard = () => {
         <ParkingLot
           isAdmin={isAdmin} />
       </main>
+
+      <GateControlPanel
+        isAdmin={isAdmin}
+        API_BASE_URL={API_BASE_URL}
+      />
 
       <footer className="dashboard-footer">
         <p>© 2025 Smart Parking System — Powered by ESP32 & React</p>

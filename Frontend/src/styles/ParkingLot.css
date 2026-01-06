@@ -123,202 +123,267 @@
   opacity: 0.8;
 }
 
-/* Container tổng */
+/* Container chính */
 .security-emergency-container {
-  background: #1e1b4b; /* Deep Indigo */
-  border: 1px solid #4338ca;
+  background: #ffffff;
   border-radius: 16px;
-  padding: 24px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   margin-bottom: 30px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  border: 1px solid #f1f5f9;
 }
 
-/* Header */
+/* Header của khu vực an ninh */
 .security-panel-header {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 20px;
-  color: #e0e7ff;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #fff1f2; /* Màu đỏ hồng rất nhạt */
 }
 
-.security-panel-header h2 {
+.security-title h2 {
+  color: #e11d48; /* Màu đỏ hồng hiện đại */
   font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
   margin: 0;
 }
 
 .warning-count {
-  background: #ef4444;
-  padding: 2px 10px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: bold;
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
 }
 
-/* Grid danh sách card */
+/* Grid hiển thị các thẻ */
 .security-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
 }
 
-/* Card chi tiết */
+/* Thẻ cảnh báo an ninh */
 .security-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid #fee2e2;
   border-radius: 12px;
-  overflow: hidden;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
 }
 
 .security-card:hover {
-  border-color: #818cf8;
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(225, 29, 72, 0.1);
 }
 
-.security-card-content {
-  padding: 16px;
-  flex-grow: 1;
+/* Vạch màu đỏ trang trí bên trái để nhấn mạnh */
+.security-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #e11d48;
 }
 
-/* Badge số ô đỗ */
+/* Badge vị trí đỗ xe */
 .slot-badge {
-  background: #fbbf24;
-  color: #78350f;
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 6px;
-  font-weight: 800;
+  background: #fff1f2;
+  color: #e11d48;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
   font-size: 0.9rem;
+  display: inline-block;
   margin-bottom: 12px;
+  border: 1px solid #fecdd3;
 }
 
-/* Dòng chi tiết */
+/* Chi tiết thông tin */
 .security-details {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  color: #94a3b8;
+  margin-bottom: 16px;
 }
 
 .detail-row {
   display: flex;
   align-items: center;
   gap: 8px;
+  color: #475569;
   font-size: 0.9rem;
 }
 
 .detail-row strong {
-  color: #f8fafc;
+  color: #1e293b;
 }
 
-/* Nút xử lý */
+/* Nút xác nhận xử lý */
 .btn-resolve-action {
-  background: #4338ca;
-  color: white;
-  border: none;
-  padding: 12px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  cursor: pointer;
+  background: #10b981; /* Màu xanh lá sáng */
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
   font-weight: 600;
+  cursor: pointer;
   transition: background 0.2s;
 }
 
 .btn-resolve-action:hover {
-  background: #3730a3;
+  background: #059669;
 }
 
-/* Hiệu ứng nháy icon */
-.icon-blink {
-  color: #f87171;
-  animation: blink 1s infinite;
+/* Hiệu ứng nhấp nháy nhẹ cho icon để gây chú ý */
+.icon-security-blink {
+  color: #e11d48;
+  animation: pulse-red 2s infinite;
 }
 
+@keyframes pulse-red {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
+}
 @keyframes blink {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(1.1); }
 }
 
 /* Container Báo cháy */
+/* Container chính: Chuyển sang nền trắng, đổ bóng nổi khối */
 .fire-emergency-container {
-  background: linear-gradient(135deg, #7f1d1d 0%, #450a0a 100%);
-  border: 2px solid #ef4444;
-  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid #fecdd3;
+  border-radius: 20px;
   padding: 24px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+  margin-bottom: 24px;
+  box-shadow: 0 15px 35px rgba(225, 29, 72, 0.1); /* Đổ bóng hồng nhạt sang trọng */
+  position: relative;
+  overflow: hidden;
 }
 
+/* Hiệu ứng vạch đỏ mờ phía trên để tạo điểm nhấn */
+.fire-emergency-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #f43f5e, #fb7185);
+}
+
+/* Header: Chữ tối màu trên nền sáng */
 .fire-panel-header {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-  color: #fee2e2;
+  gap: 16px;
+  margin-bottom: 24px;
+  color: #1e293b; /* Màu xanh đen sang trọng */
 }
 
-.icon-fire-blink {
-  color: #f87171;
-  animation: fire-vibrate 0.2s infinite;
-}
-
-.location-badge-red {
-  background: #fee2e2;
-  color: #991b1b;
-  padding: 6px 12px;
-  border-radius: 6px;
+.fire-title h2 {
+  font-size: 1.4rem;
   font-weight: 800;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 10px;
+  color: #9f1239;
+  margin: 0;
+  letter-spacing: -0.5px;
 }
 
+.fire-title span {
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Icon Lửa: Hiệu ứng mềm mại hơn */
+.icon-fire-blink {
+  color: #e11d48;
+  filter: drop-shadow(0 0 8px rgba(225, 29, 72, 0.4));
+  animation: fire-soft-pulse 1.5s infinite ease-in-out;
+}
+
+/* Card chi tiết từng vị trí cháy */
+.fire-card {
+  background: #fff1f2; /* Nền đỏ cực nhạt */
+  border: 1px solid #ffe4e6;
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.3s ease;
+}
+
+.fire-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(225, 29, 72, 0.1);
+}
+
+/* Badge vị trí: Sang trọng và rõ ràng */
+.location-badge-red {
+  background: #fb7185;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 10px rgba(244, 63, 94, 0.2);
+}
+
+/* Nút xử lý: Bo tròn và hiệu ứng Glassmorphism nhẹ */
 .btn-fire-resolve {
-  background: #ef4444;
+  background: #1e293b; /* Chuyển sang màu tối để tạo sự chuyên nghiệp */
   color: white;
   border: none;
-  padding: 12px;
+  padding: 10px 20px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-fire-resolve:hover {
-  background: #dc2626;
-  letter-spacing: 1px;
+  background: #0f172a;
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Hiệu ứng rung cho Icon Lửa */
-@keyframes fire-vibrate {
-  0% { transform: translate(0); }
-  25% { transform: translate(2px, -2px); }
-  50% { transform: translate(-2px, 2px); }
-  75% { transform: translate(2px, 2px); }
-  100% { transform: translate(0); }
+/* Keyframes mới: Nhịp thở nhẹ nhàng thay vì rung giật */
+@keyframes fire-soft-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.8; }
 }
 
-/* Icon Security nháy chậm hơn */
+/* Icon Security */
 .icon-security-blink {
-  animation: pulse 1.5s infinite;
+  color: #2563eb;
+  animation: pulse-blue 2s infinite;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.7; }
-  100% { transform: scale(1); opacity: 1; }
+@keyframes pulse-blue {
+  0% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(37, 99, 235, 0)); }
+  50% { transform: scale(1.1); filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.5)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(37, 99, 235, 0)); }
 }
 
 .confirm-overlay {

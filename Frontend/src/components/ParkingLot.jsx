@@ -38,7 +38,7 @@ const ParkingLot = ({ isAdmin }) => {
   const [confirmSlotPopup, setConfirmSlotPopup] = useState(false); // Trạng thái ẩn/hiện popup
   const [pendingSlot, setPendingSlot] = useState(null);
 
-  // console.log("token là:", localStorage.getItem("token"));
+  console.log("token là:", localStorage.getItem("token"));
 
   // 1. Tự động theo dõi trạng thái ô đỗ từ cảm biến
   useEffect(() => {
@@ -284,7 +284,7 @@ const ParkingLot = ({ isAdmin }) => {
 
   return (
     <div className={`parking-lot ${isFireEmergency ? 'emergency-mode' : ''}`}>
-      {fireWarnings.length > 0 && (
+      {isAdmin && fireWarnings.length > 0 && (
         <div className="fire-emergency-container">
           <div className="fire-panel-header">
             <Flame className="icon-fire-blink" size={32} />
@@ -337,7 +337,7 @@ const ParkingLot = ({ isAdmin }) => {
               <div key={ticket._id} className="security-card">
                 <div className="security-card-content">
                   <div className="slot-badge">
-                    {ticket.slotId?.floor} - {ticket.slotId?.name}
+                    Tầng {ticket.slotId?.floor} - Vị trí {ticket.slotId?.row}-{ticket.slotId?.column}
                   </div>
                   <div className="security-details">
                     <div className="detail-row">
