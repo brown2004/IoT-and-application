@@ -1,0 +1,19 @@
+-Các chân nối iot ứng dụng project:
+
+HC-SR04 số 1:
+TRIG → 4
+ECHO → 5  
+
+HC-SR04 số 2:
+TRIG → 18
+ECHO → 19 
+
+HC-SR04 số 3:
+TRIG → 21
+ECHO → 22 
+
+HC-SR04 số 4:
+TRIG → 25
+ECHO → 26 
+
+	
