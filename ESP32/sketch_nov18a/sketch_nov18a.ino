@@ -6,17 +6,17 @@
 #include <DHT.h>
 #include <ArduinoJson.h>
 
-// ================= CẤU HÌNH =================
+// cau hinh wifi va mqtt
 const char* ssid = "TP-LINK_B80E";
 const char* password = "88888888";
 const char* mqtt_server = "broker.hivemq.com";
 
-// --- MQTT Topics ---
-const char* topic_slot     = "parking/update";      // Từng slot riêng lẻ
-const char* topic_alert    = "parking/alert";     // Cảm biến nhiệt độ & độ ẩm
-const char* topic_gate_cmd = "parking/gate_cmd";  // Điều khiển cổng
+// cac topic mqtt
+const char* topic_slot     = "parking/update";      // topic cap nhat trang thai tung slot
+const char* topic_alert    = "parking/alert";       // topic canh bao nhiet do va do am
+const char* topic_gate_cmd = "parking/gate_cmd";    // topic dieu khien cong
 
-// --- Pinout ---
+// cau hinh chan ket noi
 #define DHTPIN 4
 #define DHTTYPE DHT11
 #define GATE_LED 2
@@ -30,23 +30,23 @@ const int NUM_SLOTS = 4;
 const int trigPins[NUM_SLOTS] = {13, 14, 26, 33};
 const int echoPins[NUM_SLOTS] = {12, 27, 25, 32};
 
-// Thông tin vị trí slot
+// thong tin vi tri cua tung slot
 const char* slotRows[NUM_SLOTS]   = {"A", "A", "B", "B"};
 const char* slotCols[NUM_SLOTS]   = {"1", "2", "1", "2"};
 const char* slotFloor = "1";
 
-// --- Khởi tạo đối tượng ---
+// khoi tao cac doi tuong
 DHT dht(DHTPIN, DHTTYPE);
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-// --- FreeRTOS Handles ---
+// cac bien quan ly freertos
 SemaphoreHandle_t mqttMutex;
 SemaphoreHandle_t oledMutex;
 SemaphoreHandle_t serialMutex;
 
-// --- Biến toàn cục ---
+// bien toan cuc luu du lieu
 struct SensorData {
   float temperature;
   float humidity;
@@ -54,7 +54,7 @@ struct SensorData {
 
 int slotOccupiedCount = 0;
 
-// ================= HÀM HỖ TRỢ =================
+// cac ham ho tro
 
 void safeSerialPrint(String msg) {
   if (xSemaphoreTake(serialMutex, portMAX_DELAY) == pdTRUE) {
@@ -115,9 +115,9 @@ void reconnect() {
   }
 }
 
-// ================= TASKS =================
+// cac tac vu freertos
 
-// Task 1: Quét parking slots & gửi MQTT từng slot
+// task 1 quet cam bien sieu am va gui mqtt tung slot
 void TaskParking(void *pvParameters) {
   bool previousState[NUM_SLOTS] = {false, false, false, false};
   
@@ -130,7 +130,7 @@ void TaskParking(void *pvParameters) {
       
       if (isOccupied) count++;
       
-      // Chỉ gửi MQTT khi trạng thái thay đổi
+      // chi gui mqtt khi trang thai thay doi
       if (isOccupied != previousState[i]) {
         StaticJsonDocument<128> doc;
         doc["row"] = slotRows[i];
@@ -149,7 +149,7 @@ void TaskParking(void *pvParameters) {
         }
         
         safeSerialPrint("LOG [SLOT " + String(slotRows[i]) + String(slotCols[i]) + 
-                       "]: " + String(isOccupied ? "Occupied" : "Free"));
+                        "]: " + String(isOccupied ? "Occupied" : "Free"));
         
         previousState[i] = isOccupied;
       }
@@ -162,9 +162,9 @@ void TaskParking(void *pvParameters) {
   }
 }
 
-// Task 2: Đọc cảm biến nhiệt độ & độ ẩm, gửi MQTT
+// task 2 doc cam bien nhiet do do am va gui mqtt
 void TaskSensor(void *pvParameters) {
-  String previousStatus = ""; // Lưu trạng thái trước đó
+  String previousStatus = ""; // luu trang thai truoc do
   
   for (;;) {
     float t = dht.readTemperature();
@@ -174,10 +174,9 @@ void TaskSensor(void *pvParameters) {
       currentSensor.temperature = t;
       currentSensor.humidity = h;
       
-      // Xác định status: warning nếu nhiệt độ > 35°C
       String status = (t > 20.0) ? "warning" : "normal";
       
-      // Chỉ gửi MQTT khi trạng thái thay đổi
+      // chi gui mqtt khi trang thai thay doi
       if (status != previousStatus) {
         StaticJsonDocument<256> doc;
         doc["sensorId"] = "DHT11_01";
@@ -195,36 +194,36 @@ void TaskSensor(void *pvParameters) {
           xSemaphoreGive(mqttMutex);
         }
         
-        safeSerialPrint("LOG [SENSOR CHANGE]: " + String(t) + "°C | " + 
-                       String(h) + "% | Status: " + status);
+        safeSerialPrint("LOG [SENSOR CHANGE]: " + String(t) + "C | " + 
+                        String(h) + "% | Status: " + status);
         
         previousStatus = status;
       } else {
-        // Không gửi MQTT, chỉ log local
-        safeSerialPrint("LOG [SENSOR]: " + String(t) + "°C | " + 
-                       String(h) + "% | Status: " + status + " (no change)");
+        // khong gui mqtt chi log cuc bo
+        safeSerialPrint("LOG [SENSOR]: " + String(t) + "C | " + 
+                        String(h) + "% | Status: " + status + " (no change)");
       }
     } else {
-      safeSerialPrint("ERROR: Không đọc được DHT11!");
+      safeSerialPrint("ERROR: Khong doc duoc DHT11!");
     }
     
     vTaskDelay(pdMS_TO_TICKS(5000));
   }
 }
 
-// Task 3: Hiển thị OLED
+// task 3 hien thi thong tin len man hinh oled
 void TaskDisplay(void *pvParameters) {
   for (;;) {
     if (xSemaphoreTake(oledMutex, pdMS_TO_TICKS(100)) == pdTRUE) {
       display.clearDisplay();
       
-      // ===== HEADER =====
+      
       display.setTextSize(1);
       display.setCursor(18, 0);
       display.print("SMART PARKING");
       display.drawLine(0, 10, 128, 10, WHITE);
       
-      // ===== SỐ LƯỢNG XE (CANH GIỮA) =====
+      // hien thi so luong xe
       display.setTextSize(2);
       int xPos = (128 - (7 * 11)) / 2;
       display.setCursor(xPos, 18);
@@ -233,16 +232,16 @@ void TaskDisplay(void *pvParameters) {
       display.print("/");
       display.print(NUM_SLOTS);
       
-      // ===== NHIỆT ĐỘ & ĐỘ ẨM =====
+      // hien thi nhiet do va do am
       display.setTextSize(1);
       
-      // Nhiệt độ
+      // hien thi nhiet do
       display.setCursor(0, 42);
       display.print("Nhiet do:");
       display.setCursor(65, 42);
       display.printf("%.1fC", currentSensor.temperature);
       
-      // Độ ẩm
+      // hien thi do am
       display.setCursor(0, 54);
       display.print("Do am:");
       display.setCursor(65, 54);
@@ -256,7 +255,7 @@ void TaskDisplay(void *pvParameters) {
   }
 }
 
-// Task 4: Xử lý MQTT
+// task 4 xu ly ket noi mqtt
 void TaskMQTT(void *pvParameters) {
   for (;;) {
     if (!client.connected()) reconnect();
@@ -270,12 +269,11 @@ void TaskMQTT(void *pvParameters) {
   }
 }
 
-// ================= SETUP & LOOP =================
-
+// thiet lap he thong
 void setup() {
   Serial.begin(115200);
   
-  // Init IO
+  // khoi tao chan io
   pinMode(GATE_LED, OUTPUT);
   digitalWrite(GATE_LED, LOW);
   
@@ -284,12 +282,12 @@ void setup() {
     pinMode(echoPins[i], INPUT);
   }
   
-  // Init DHT & OLED
+  // khoi tao cam bien va man hinh
   dht.begin();
   Wire.begin(SDA_PIN, SCL_PIN);
   
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-    Serial.println("ERROR: Không tìm thấy OLED!");
+    Serial.println("ERROR: Khong tim thay OLED!");
   } else {
     display.clearDisplay();
     display.setTextColor(WHITE);
@@ -299,25 +297,25 @@ void setup() {
     display.display();
   }
   
-  // Init WiFi & MQTT
+  // khoi tao wifi va mqtt
   setup_wifi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
   
-  // Init FreeRTOS Resources
+  // khoi tao tai nguyen freertos
   mqttMutex = xSemaphoreCreateMutex();
   oledMutex = xSemaphoreCreateMutex();
   serialMutex = xSemaphoreCreateMutex();
   
-  // Tạo Tasks
+  // tao cac task
   xTaskCreatePinnedToCore(TaskMQTT,    "MQTT",    8192, NULL, 3, NULL, 0);
   xTaskCreatePinnedToCore(TaskParking, "Parking", 4096, NULL, 2, NULL, 1);
   xTaskCreatePinnedToCore(TaskSensor,  "Sensor",  4096, NULL, 1, NULL, 1);
   xTaskCreatePinnedToCore(TaskDisplay, "Display", 4096, NULL, 1, NULL, 1);
   
-  Serial.println("--- SYSTEM STARTED ---");
+  
 }
 
 void loop() {
-  // Loop để trống vì FreeRTOS đã lo hết
+  // vong lap de trong vi da co freertos xu ly
 }
